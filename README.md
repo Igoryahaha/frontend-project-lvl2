@@ -5,4 +5,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5766f90352ec87e55746/maintainability)](https://codeclimate.com/github/Igor3411/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5766f90352ec87e55746/test_coverage)](https://codeclimate.com/github/Igor3411/frontend-project-lvl2/test_coverage)
 
-[![Work with JSON](https://asciinema.org/a/489644.svg)](https://asciinema.org/a/489644)
+[![Work with flat JSON](https://asciinema.org/a/489644.svg)](https://asciinema.org/a/489644)
+
+[![Work with flat yml](https://asciinema.org/a/490137.svg)](https://asciinema.org/a/490137)
+
+[![Work with JSON](https://asciinema.org/a/490143.svg)](https://asciinema.org/a/490143)
