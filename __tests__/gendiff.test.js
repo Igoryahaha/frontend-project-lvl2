@@ -17,3 +17,8 @@ test('genDiff, JSON files', () => {
   const getDiffResultJson = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'));
   expect(getDiffResultJson).toBe(JSONOutputResult);
 });
+
+test('genDiff, YML files', () => {
+  const getDiffResultJson = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'));
+  expect(getDiffResultJson).toBe(JSONOutputResult);
+});
