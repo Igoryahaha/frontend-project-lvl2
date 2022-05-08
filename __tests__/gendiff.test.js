@@ -13,6 +13,8 @@ const readFixture = (filename) => fs.readFileSync(`${getFixturePath(filename)}`,
 
 const flatOutputResult = readFixture('flatOutput.txt');
 const stylishOutputResult = readFixture('stylishOutput.txt');
+const plainOutputResult = readFixture('plainOutput.txt');
+const jsonOutputResult = readFixture('jsonOutput.txt');
 
 test('genDiff, flat JSON files', () => {
   const getDiffResultJson = genDiff(getFixturePath('flatFile1.json'), getFixturePath('flatFile2.json'));
@@ -27,4 +29,24 @@ test('genDiff, JSON files', () => {
 test('genDiff, YML files', () => {
   const getDiffResultJson = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'));
   expect(getDiffResultJson).toBe(stylishOutputResult);
+});
+
+test('genDiff plain, JSON files', () => {
+  const getDiffResultJson = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'plain');
+  expect(getDiffResultJson).toBe(plainOutputResult);
+});
+
+test('genDiff plain, YML files', () => {
+  const getDiffResultJson = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'plain');
+  expect(getDiffResultJson).toBe(plainOutputResult);
+});
+
+test('genDiff json, JSON files', () => {
+  const getDiffResultJson = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'json');
+  expect(getDiffResultJson).toBe(jsonOutputResult);
+});
+
+test('genDiff json, YML files', () => {
+  const getDiffResultJson = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'json');
+  expect(getDiffResultJson).toBe(jsonOutputResult);
 });

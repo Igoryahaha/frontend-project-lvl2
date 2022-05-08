@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import getDiff from './buildDiff.js';
-import formatDiff from './formatDiff.js';
+import getFormattedData from './formatters/index.js';
 import parser from './parsers.js';
 
 const readFile = (file) => {
@@ -12,9 +12,9 @@ const readFile = (file) => {
   return parser(fs.readFileSync(filePath, 'utf8'), fileType);
 };
 
-const genDiff = (file1, file2) => {
+const genDiff = (file1, file2, formatName) => {
   const data = getDiff(readFile(file1), readFile(file2));
-  return formatDiff(data);
+  return getFormattedData(data, formatName);
 };
 
 export default genDiff;

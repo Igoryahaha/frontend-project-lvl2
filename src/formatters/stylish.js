@@ -1,4 +1,4 @@
-import { getActionType } from './buildDiff.js';
+import { getActionType } from '../buildDiff.js';
 
 const setGap = (depth, spaceCount = 4) => ' '.repeat(spaceCount * depth - 2);
 
@@ -30,7 +30,7 @@ const formatValueToString = (prefix, key, value, depth, depthStep) => {
   return `${setGap(depth)}${prefix} ${key}: ${value}`;
 };
 
-const formatDiff = (data) => {
+const formatDataStylish = (data) => {
   const depthStep = 1;
 
   const iter = (tree, depth) => tree.map((item) => {
@@ -77,4 +77,4 @@ const formatDiff = (data) => {
   return result.join('\n');
 };
 
-export default formatDiff;
+export default formatDataStylish;
