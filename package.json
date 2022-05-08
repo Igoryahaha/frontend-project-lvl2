@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "test": "npx jest --bail"
+    "test": "npx jest"
   },
   "bugs": {
     "url": "https://github.com/Igor3411/frontend-project-lvl2/issues"
