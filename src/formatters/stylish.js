@@ -1,33 +1,19 @@
+import _ from 'lodash';
 import { getActionType } from '../buildDiff.js';
 
 const setGap = (depth, spaceCount = 4) => ' '.repeat(spaceCount * depth - 2);
 
-const formatObjectToString = (obj, depth, depthStep) => {
-  const result = Object.entries(obj).map(([key, value]) => {
-    if (typeof value === 'object') {
-      return `${setGap(depth + depthStep)}  ${key}: ${formatObjectToString(
-        value,
-        depth + depthStep,
-        depthStep,
-      )}`;
-    }
-    return `${setGap(depth + depthStep)}  ${key}: ${value}`;
-  });
-
-  return ['{', result.join('\n'), `${setGap(depth + depthStep / 2)}}`].join(
-    '\n',
-  );
-};
-
-const formatValueToString = (prefix, key, value, depth, depthStep) => {
-  if (typeof value === 'object' && !getActionType(value) && value !== null) {
-    return `${setGap(depth)}${prefix} ${key}: ${formatObjectToString(
-      value,
-      depth,
-      depthStep,
-    )}`;
+const stringify = (value, depth) => {
+  if (!_.isObject(value)) {
+    return String(value);
   }
-  return `${setGap(depth)}${prefix} ${key}: ${value}`;
+  const currentDepth = depth + 1;
+  const allObjKeys = Object.keys(value);
+  const res = allObjKeys
+    .map((key) => `  ${key}: ${stringify(value[key], currentDepth)}`)
+    .join(`\n${setGap(currentDepth)}`);
+
+  return `{\n${setGap(currentDepth)}${res}\n  ${setGap(depth)}}`;
 };
 
 const formatDataStylish = (data) => {
@@ -38,37 +24,15 @@ const formatDataStylish = (data) => {
 
     switch (getActionType(item)) {
       case 'added':
-        return formatValueToString('+', key, item.value, depth, depthStep);
+        return `${setGap(depth)}+ ${key}: ${stringify(item.value, depth)}`;
       case 'removed':
-        return formatValueToString('-', key, item.value, depth, depthStep);
+        return `${setGap(depth)}- ${key}: ${stringify(item.value, depth)}`;
       case 'updated':
-        return `${formatValueToString(
-          '-',
-          key,
-          item.updatedValue,
-          depth,
-          depthStep,
-        )}\n${formatValueToString(
-          '+',
-          key,
-          item.value,
-          depth,
-          depthStep,
-        )}`;
+        return `${setGap(depth)}- ${key}: ${stringify(item.updatedValue, depth)}\n${setGap(depth)}+ ${key}: ${stringify(item.value, depth)}`;
       case 'nested':
-        return formatValueToString(
-          ' ',
-          key,
-          [
-            '{',
-            iter(item.children, depth + depthStep).join('\n'),
-            `${setGap(depth + depthStep / 2)}}`,
-          ].join('\n'),
-          depth,
-          depthStep,
-        );
+        return `${setGap(depth)}  ${key}: {\n${iter(item.children, depth + 1).join('\n')}\n  ${setGap(depth)}}`;
       default:
-        return formatValueToString(' ', key, item.value, depth, depthStep);
+        return `${setGap(depth)}  ${key}: ${stringify(item.value, depth)}`;
     }
   });
 

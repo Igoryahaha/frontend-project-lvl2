@@ -1,7 +1,7 @@
 import path from 'path';
 import { getActionType } from '../buildDiff.js';
 
-const resolveItemType = (item) => {
+const formatValue = (item) => {
   if (item === null) {
     return item;
   }
@@ -17,16 +17,16 @@ const resolveItemType = (item) => {
 
 const formatDataPlain = (data) => {
   const iter = (node, ancestry) => node.flatMap((item) => {
-    const { key, value } = item;
+    const { key } = item;
 
     const newAncestry = path.join(ancestry, `${key}`).split('/').join('.');
     switch (getActionType(item)) {
       case 'added':
-        return `Property '${newAncestry}' was added with value: ${resolveItemType(value)}`;
+        return `Property '${newAncestry}' was added with value: ${formatValue(item.value)}`;
       case 'removed':
         return `Property '${newAncestry}' was removed`;
       case 'updated':
-        return `Property '${newAncestry}' was updated. From ${resolveItemType(item.updatedValue)} to ${resolveItemType(value)}`;
+        return `Property '${newAncestry}' was updated. From ${formatValue(item.updatedValue)} to ${formatValue(item.value)}`;
       case 'nested':
         return iter(item.children, newAncestry);
       default:

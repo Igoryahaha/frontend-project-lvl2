@@ -32,6 +32,6 @@ const getDiff = (data1, data2) => {
   });
 };
 
-export const getActionType = (data) => (_.has(data, 'actionType') ? data.actionType : undefined);
+export const getActionType = (data) => data.actionType;
 
 export default getDiff;

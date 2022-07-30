@@ -7,8 +7,10 @@ const getFormattedData = (data, format) => {
       return formatDataPlain(data);
     case 'json':
       return JSON.stringify(data);
-    default:
+    case 'stylish':
       return formatDataStylish(data);
+    default:
+      throw new Error('Unknown format');
   }
 };
 
