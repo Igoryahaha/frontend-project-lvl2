@@ -10,7 +10,7 @@ const getFormattedData = (data, format) => {
     case 'stylish':
       return formatDataStylish(data);
     default:
-      throw new Error('Unknown format');
+      throw new Error(`Unknown format: ${format}`);
   }
 };
 

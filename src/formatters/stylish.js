@@ -28,7 +28,7 @@ const formatDataStylish = (data) => {
       case 'removed':
         return `${setGap(depth)}- ${key}: ${stringify(item.value, depth)}`;
       case 'updated':
-        return `${setGap(depth)}- ${key}: ${stringify(item.updatedValue, depth)}\n${setGap(depth)}+ ${key}: ${stringify(item.value, depth)}`;
+        return `${setGap(depth)}- ${key}: ${stringify(item.oldValue, depth)}\n${setGap(depth)}+ ${key}: ${stringify(item.newValue, depth)}`;
       case 'nested':
         return `${setGap(depth)}  ${key}: {\n${iter(item.children, depth + 1).join('\n')}\n  ${setGap(depth)}}`;
       default:

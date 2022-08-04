@@ -6,20 +6,20 @@ import parser from './parsers.js';
 
 const readFile = (filePath) => fs.readFileSync(filePath, 'utf8');
 
-const getFilePath = (file) => path.resolve(file);
+const getResolvedFilePath = (filePath) => path.resolve(filePath);
 
-const genDiff = (file1, file2, formatName = 'stylish') => {
-  const filePath1 = getFilePath(file1);
-  const filePath2 = getFilePath(file2);
+const genDiff = (filePath1, filePath2, formatName = 'stylish') => {
+  const resolvedFilePath1 = getResolvedFilePath(filePath1);
+  const resolvedFilePath2 = getResolvedFilePath(filePath2);
 
-  const fileType1 = path.extname(filePath1).slice(1);
-  const fileType2 = path.extname(filePath2).slice(1);
+  const fileType1 = path.extname(resolvedFilePath1).slice(1);
+  const fileType2 = path.extname(resolvedFilePath2).slice(1);
 
-  const dataFile1 = parser(readFile(filePath1), fileType1);
-  const dataFile2 = parser(readFile(filePath2), fileType2);
+  const dataFile1 = parser(readFile(resolvedFilePath1), fileType1);
+  const dataFile2 = parser(readFile(resolvedFilePath2), fileType2);
 
-  const data = getDiff(dataFile1, dataFile2);
-  return getFormattedData(data, formatName);
+  const diff = getDiff(dataFile1, dataFile2);
+  return getFormattedData(diff, formatName);
 };
 
 export default genDiff;

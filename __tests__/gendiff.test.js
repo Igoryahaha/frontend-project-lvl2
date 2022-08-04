@@ -6,7 +6,11 @@ const fixturesPaths = {
   json: ['./__fixtures__/file1.json', './__fixtures__/file2.json'],
   yml: ['./__fixtures__/file1.yml', './__fixtures__/file2.yml'],
 };
-const output = (formater) => fs.readFileSync(`./__fixtures__/output_${formater}.txt`, 'utf-8').trim();
+const outputs = {
+  stylish: fs.readFileSync('./__fixtures__/output_stylish.txt', 'utf-8').trim(),
+  plain: fs.readFileSync('./__fixtures__/output_plain.txt', 'utf-8').trim(),
+  json: fs.readFileSync('./__fixtures__/output_json.txt', 'utf-8').trim(),
+};
 
 test.each([
   { formater: 'stylish', ext: 'json' },
@@ -16,5 +20,5 @@ test.each([
   { formater: 'json', ext: 'json' },
 ])('check formater - "$formater" ext - "$ext"', ({ formater, ext }) => {
   expect(genDiff(fixturesPaths[ext][0], fixturesPaths[ext][1], formater))
-    .toBe(output(formater));
+    .toBe(outputs[formater]);
 });

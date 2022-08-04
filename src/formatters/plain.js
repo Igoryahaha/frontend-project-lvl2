@@ -26,11 +26,11 @@ const formatDataPlain = (data) => {
       case 'removed':
         return `Property '${newAncestry}' was removed`;
       case 'updated':
-        return `Property '${newAncestry}' was updated. From ${formatValue(item.updatedValue)} to ${formatValue(item.value)}`;
+        return `Property '${newAncestry}' was updated. From ${formatValue(item.oldValue)} to ${formatValue(item.newValue)}`;
       case 'nested':
         return iter(item.children, newAncestry);
       default:
-        return '';
+        throw new Error(`Unknown type: ${getActionType(item)}`);
     }
   });
   const result = iter(data, '');
