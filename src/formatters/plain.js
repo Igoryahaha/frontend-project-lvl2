@@ -29,6 +29,8 @@ const formatDataPlain = (data) => {
         return `Property '${newAncestry}' was updated. From ${formatValue(item.oldValue)} to ${formatValue(item.newValue)}`;
       case 'nested':
         return iter(item.children, newAncestry);
+      case 'unchanged':
+        return '';
       default:
         throw new Error(`Unknown type: ${getActionType(item)}`);
     }
